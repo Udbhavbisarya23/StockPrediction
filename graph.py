@@ -1,3 +1,7 @@
+# This file creates the bipartite graph in the form of adjacency matrix. The
+# rows of the adjaceny matrix represent companies and the columns represent
+# majority stockholders. The matrix is then stored in an xls file
+
 import os
 import yfinance as yf
 from xlrd import open_workbook, sheet
@@ -37,6 +41,7 @@ for filename in os.listdir(directory):
     companies_map[company] = ind
     ind += 1
 
+
 # Creating a map for companies total shares
 '''Uncomment the following lines to create the excel sheet to get total shares sheet
 companys_shares = {}
@@ -56,18 +61,20 @@ for filename in os.listdir(directory):
 wb.save("Total_Shares.xls")
 '''
 
+
 # Creating the map of company to total stocks
-company_shares={}
-wb=open_workbook("Total_Shares.xls")
+company_shares = {}
+wb = open_workbook("Total_Shares.xls")
 sheet = wb.sheet_by_index(0)
-for ind in range(0,503):
+for ind in range(0, 503):
     company = str(sheet.cell_value(ind, 1))
     shares = sheet.cell_value(ind, 2)
-    company_shares[company]=shares
+    company_shares[company] = shares
 
 '''Manually adding the missing shares'''
-company_shares["BBWI"]=264750000
-company_shares["OGN"]=253540000
+company_shares["BBWI"] = 264750000
+company_shares["OGN"] = 253540000
+
 
 # Create the adjaceny matrix with companies as rows and stockholders as columns
 adj_matr = [[0]*len(stockholder_arr)
@@ -82,21 +89,23 @@ for filename in os.listdir(directory):
     for ind in range(1, 11, 1):
         stockholder = str(sheet.cell_value(ind, 1))
         shares = int(sheet.cell_value(ind, 2))
-        adj_matr[companies_map[company]][stockholder_map[stockholder]] = shares/int(company_shares[company])
+        adj_matr[companies_map[company]][stockholder_map[stockholder]
+                                         ] = shares/int(company_shares[company])
 
-#Creating an Excel Sheet for savind corporation network
+
+# Creating an Excel Sheet for savind corporation network
 wb = xlsxwriter.Workbook('Corporation_network.xlsx')
 sheet = wb.add_worksheet()
 for i in range(len(stockholder_arr)):
-    sheet.write(0,i+1,stockholder_arr[i])
-count=0
+    sheet.write(0, i+1, stockholder_arr[i])
+count = 0
 for filename in os.listdir(directory):
     company = filename[:-4]
-    sheet.write(count+1,0,company)
-    count+=1
+    sheet.write(count+1, 0, company)
+    count += 1
 for i in range(len(companies_map)):
     for j in range(len(stockholder_map)):
-        sheet.write(i+1,j+1,adj_matr[i][j])
+        sheet.write(i+1, j+1, adj_matr[i][j])
 wb.close()
 
 print("Corporation network ready")
