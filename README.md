@@ -5,3 +5,5 @@
 Dataset creation for GCN-based Stock price prediction and for Node-embeddings based Stock prediction using corporation networks. This repository uses the relations between companies and their institutional shareholders. Using this a bipartite graph is created. We use a projection of this graph to get the final corporation network which consists of only stock nodes.
 
 The colab notebook which implements GCN is "GCN_StockPrediction_T7.ipynb"
+
+The colab notebook which implements the Node2Vec algorithm for Stock Price Prediction is "Node2Vec.ipynb"
