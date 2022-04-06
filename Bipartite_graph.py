@@ -64,14 +64,14 @@ wb.save("Total_Shares.xls")
 
 # Creating the map of company to total stocks
 company_shares = {}
-wb = open_workbook("Total_Shares.xls")
+wb = open_workbook(os.path.join(os.path.dirname(__file__), 'Dataset/Companies_Total_Shares/Total_Shares.xls'))
 sheet = wb.sheet_by_index(0)
 for ind in range(0, 503):
     company = str(sheet.cell_value(ind, 1))
     shares = sheet.cell_value(ind, 2)
     company_shares[company] = shares
 
-'''Manually adding the missing shares'''
+#Manually adding the missing shares
 company_shares["BBWI"] = 264750000
 company_shares["OGN"] = 253540000
 
@@ -94,7 +94,7 @@ for filename in os.listdir(directory):
 
 
 # Creating an Excel Sheet for savind corporation network
-wb = xlsxwriter.Workbook('Corporation_network.xlsx')
+wb = xlsxwriter.Workbook('Graphs/Bipartite_Graph/Bipartite.xlsx')
 sheet = wb.add_worksheet()
 for i in range(len(stockholder_arr)):
     sheet.write(0, i+1, stockholder_arr[i])
