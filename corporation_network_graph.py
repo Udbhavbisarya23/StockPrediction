@@ -56,18 +56,18 @@ for current_stock in range(len(stocks)):
                 count += 1
         value=value/2
 
-        if count > 8 and industries[stocks[current_stock]] == industries[stocks[second_stock]] and industries[stocks[current_stock]] != "NA":
+        if count > 9 and industries[stocks[current_stock]] == industries[stocks[second_stock]] and industries[stocks[current_stock]] != "NA":
             value = 1
-        elif count > 8:
+        elif count > 9:
             value = value
-        elif count <= 8:
+        elif count <= 9:
             value = 0
 
         single_mode[current_stock][second_stock]=value
         single_mode[second_stock][current_stock]=value
 
 # Creating an Excel Sheet for saving Corporation network
-wb = xlsxwriter.Workbook(os.path.join(os.path.dirname(__file__), 'Graphs/Corporation_Network/Corporation_network_count8.xlsx'))
+wb = xlsxwriter.Workbook(os.path.join(os.path.dirname(__file__), 'Graphs/Corporation_Network/Corporation_network_count9.xlsx'))
 sheet = wb.add_worksheet()
 for i in range(len(stocks)):
     sheet.write(0, i+1, stocks[i])
